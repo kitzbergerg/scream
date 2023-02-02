@@ -5,7 +5,6 @@ use defmt_rtt as _;
 use panic_halt as _;
 
 use cortex_m_rt::entry;
-use defmt::export::panic;
 use lsm303agr::{AccelOutputDataRate, Lsm303agr, Measurement};
 use microbit::{
     hal::{
@@ -22,6 +21,7 @@ use microbit::pac::twim0::frequency::FREQUENCY_A;
 
 #[entry]
 fn main() -> ! {
+    defmt::println!("Starting");
     let board = Board::take().unwrap();
 
     // NB: The LF CLK pin is used by the speaker
