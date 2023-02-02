@@ -1,7 +1,11 @@
 #![no_main]
 #![no_std]
 
+use defmt_rtt as _;
+use panic_halt as _;
+
 use cortex_m_rt::entry;
+use defmt::export::panic;
 use lsm303agr::{AccelOutputDataRate, Lsm303agr, Measurement};
 use microbit::{
     hal::{
@@ -15,12 +19,9 @@ use microbit::{
 };
 use microbit::hal::Twim;
 use microbit::pac::twim0::frequency::FREQUENCY_A;
-use panic_rtt_target as _;
-use rtt_target::{rprintln, rtt_init_print};
 
 #[entry]
 fn main() -> ! {
-    rtt_init_print!();
     let board = Board::take().unwrap();
 
     // NB: The LF CLK pin is used by the speaker
